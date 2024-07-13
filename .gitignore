@@ -1,0 +1,46 @@
+
+
+# Node artifact files
+node_modules/
+dist/
+
+# Python files
+env
+__pycache__
+
+
+# Compiled Python bytecode
+*.py[cod]
+
+# Log files
+*.log
+log*.txt
+
+# Temporary databases
+*.sqlite3
+
+# React ignore 
+./frontend/logbag_frontend/node_modules
+
+# Logs
+./frontend/logbag_frontend/logs
+./frontend/logbag_frontend/*.log
+./frontend/logbag_frontend/npm-debug.log*
+./frontend/logbag_frontend/yarn-debug.log*
+./frontend/logbag_frontend/yarn-error.log*
+./frontend/logbag_frontend/pnpm-debug.log*
+./frontend/logbag_frontend/lerna-debug.log*
+
+./frontend/logbag_frontend/node_modules
+./frontend/logbag_frontend/dist
+./frontend/logbag_frontend/dist-ssr
+./frontend/logbag_frontend/*.local
+./frontend/logbag_frontend/.vscode/*
+./frontend/logbag_frontend/!.vscode/extensions.json
+./frontend/logbag_frontend/.idea
+./frontend/logbag_frontend/.DS_Store
+./frontend/logbag_frontend/*.suo
+./frontend/logbag_frontend/*.ntvs*
+./frontend/logbag_frontend/*.njsproj
+./frontend/logbag_frontend/*.sln
+./frontend/logbag_frontend/*.sw?

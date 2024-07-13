@@ -1,0 +1,43 @@
+<div>
+    <canvas id="logsChart"></canvas>
+</div>
+
+<script>
+    ctx = document.getElementById('logsChart');
+
+    new Chart(ctx, {
+        type: {{ chart_type|safe }},
+        data: {
+            labels: {{ labels|safe }},
+            datasets: [{
+                label: 'Number of logs {% if aggregation == "Level" %}on {% endif %}each {{ aggregation|safe }}',
+                data: {{ data|safe }},
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+            {% comment %} plugins: {
+                zoom: {
+                    pan: {
+                        enabled: true,
+                        mode: 'xy'
+                    },
+                    zoom: {
+                        wheel: {
+                            enabled: true
+                        },
+                        pinch: {
+                            enabled: true
+                        },
+                        mode: 'xy'
+                    }
+                }
+            } {% endcomment %}
+        }
+    });
+</script>

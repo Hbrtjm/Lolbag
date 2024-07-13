@@ -1,0 +1,35 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Homepage {% endblock %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/homepage.css' %}">
+{% endblock %}
+{% block content %}
+<h1>Welcome to Log Bag!</h1>
+<section>
+    <h2>What is Log Bag?</h2>
+    <p>Log Bag monitors a given log file, collects changes in the database, and displays them in a chart. The
+        user can request a specific timeframe of data, select log entry levels, or search for specific parts of
+        messages.</p>
+</section>
+<span></span>
+<div class="contact-us">
+    <h2>Contact Us</h2>
+    <form action="/contact" method="post"> {% csrf_token %}
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="subject">Subject</label>
+        <input type="text" id="subject" name="subject" required>
+
+        <label for="message">Message</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock %}

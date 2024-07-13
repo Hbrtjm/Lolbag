@@ -1,0 +1,14 @@
+{% extends 'pages/base.html' %}
+
+{% block title %} Homepage {% endblock %}
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" type="text/css" href="{% static 'CSS/contact.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<h1>Contact message was sent!</h1>
+<button onclick="goTo('/')">Go back to homepage</button>
+</div>
+{% endblock %}

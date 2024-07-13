@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+{% load static %}
+
+<head>
+    {% block head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'CSS/base.css' %}">
+    <title>{% block title %}{% endblock %} - Log Bag</title>
+    {% endblock %}
+    <link href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" rel="stylesheet">
+    {% block styles %}
+    {% endblock %}
+    <script src="https://unpkg.com/htmx.org@1.9.6"
+        integrity="sha384-FhXw7b6AlE/jyjlZH5iHa/tTe9EpJ1Y55RjcgPbjeWMskSxZt1v9qkxLJWNJaGni"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.0"></script>
+    <script src="{% static 'JS/burger.js' %}"></script>
+    <script>
+        function goTo(page_name) {
+            window.location.href = page_name;
+        }
+    </script>
+    {% block scripts %}
+    {% endblock %}
+</head>
+
+<body>
+    <div id="root">
+        <nav class="navbar is-light">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="/">
+                    <strong>Log Bag</strong>
+                </a>
+                <div class="navbar-burger" id="burger-menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <div class="navbar-menu" id="nav-links">
+                <div class="navbar-start">
+                    <a class="navbar-item" onClick="goTo('/')">Homepage</a>
+                    <a class="navbar-item" onClick="goTo('/api/log_tracker/chart')">Chart</a>
+                    <a class="navbar-item" onClick="goTo('/api/log_tracker')">Logs</a>
+                </div>
+            </div>
+        </nav>
+        <div id="dropdown" class="navbar-dropdown">
+            <a class="navbar-item" onClick="goTo('/')">Homepage</a>
+            <a class="navbar-item" onClick="goTo('/api/log_tracker/chart')">Chart</a>
+            <a class="navbar-item" onClick="goTo('/api/log_tracker')">Logs</a>
+        </div>
+        <div id="content" class="section">
+            {% block content %} {% endblock %}
+        </div>
+        {% block footer %}
+        <footer class="footer">
+            <div class="footer-content has-text-centered">
+                <p>
+                    &copy; Copyright 2024 by <a href="https://deployed.pl/">Deployed</a>.
+                </p>
+            </div>
+        </footer>
+        {% endblock %}
+    </div>
+
+
+</body>
+
+</html>
