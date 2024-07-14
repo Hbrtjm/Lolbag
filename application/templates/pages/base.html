@@ -16,9 +16,32 @@
     <script src="https://unpkg.com/htmx.org@2.0.0"></script>
     <script src="{% static 'JS/burger.js' %}"></script>
     <script>
-        function goTo(page_name) {
-            window.location.href = page_name;
+        
+        
+        const goTo = (pageName) => {
+            window.location.href = pageName;
         }
+            document.addEventListener('DOMContentLoaded', function () {
+            const numberInput = document.getElementById("getLogByNumber");
+            let logNumber = '';
+
+            const updateLogNumber = (newValue) => {
+                logNumber = newValue;
+                console.log(logNumber);
+            }
+
+            const goToNumber = () => {
+                console.log(logNumber);
+                window.location.href = `/api/log_tracker/${logNumber}`;
+            }
+
+            // Add an event listener to the input box
+            numberInput.addEventListener('input', (event) => {
+                updateLogNumber(event.target.value);
+            });
+
+            document.querySelector('.navbar-item[onClick="goToNumber()"]').addEventListener('click', goToNumber);
+        });
     </script>
     {% block scripts %}
     {% endblock %}
@@ -42,6 +65,8 @@
                     <a class="navbar-item" onClick="goTo('/')">Homepage</a>
                     <a class="navbar-item" onClick="goTo('/api/log_tracker/chart')">Chart</a>
                     <a class="navbar-item" onClick="goTo('/api/log_tracker')">Logs</a>
+                    <input class="navbar-item" id="getLogByNumber" class="input-box" placeholder="Write log number...">
+                    <a class="navbar-item" onClick="goToNumber()">Get Log By Number</a> 
                 </div>
             </div>
         </nav>
@@ -53,16 +78,16 @@
         <div id="content" class="section">
             {% block content %} {% endblock %}
         </div>
-        {% block footer %}
-        <footer class="footer">
-            <div class="footer-content has-text-centered">
-                <p>
-                    &copy; Copyright 2024 by <a href="https://deployed.pl/">Deployed</a>.
-                </p>
-            </div>
-        </footer>
-        {% endblock %}
     </div>
+    {% block footer %}
+    <footer class="footer">
+        <div class="footer-content has-text-centered">
+            <p>
+                Copyright &copy; 2024 by <a href="https://deployed.pl/">Deployed</a>. All right reserved
+            </p>
+        </div>
+    </footer>
+    {% endblock %}
 
 
 </body>

@@ -56,3 +56,9 @@ button {
 button:hover {
     background-color: #218838;
 }
+
+.contact-us
+{
+    max-width: 400px;
+    min-width: 200px;
+}

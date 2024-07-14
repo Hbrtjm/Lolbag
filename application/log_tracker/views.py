@@ -32,6 +32,8 @@ def log_list(request):
 
 @api_view(["GET", "PUT", "DELETE"])
 def log_detail(request, id):
+    if not str(id).isnumeric():
+        return Response("Given value is not a number",status=status.HTTP_400_BAD_REQUEST)
     log = get_object_or_404(Log, id=id)
     if request.method == "GET":
         serializer = LogSerializer(log)

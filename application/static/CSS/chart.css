@@ -5,7 +5,17 @@
 
 #chart-wrapper
 {
-    max-width: 70%;
-    width: 50%;
-    min-height: 500px;
+    max-width: 100%;
+    width: 100%;
+}
+
+canvas
+{
+    width: 100% !important;
+    height: 100% !important;
+}
+
+#content
+{
+    height: 100%;
 }
