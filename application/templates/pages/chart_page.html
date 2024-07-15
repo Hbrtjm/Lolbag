@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block styles %}
-<link rel="stylesheet" type="text/css" href="{% static 'CSS/chart.css' %}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 {% endblock %}
 
 {% block scripts %}
@@ -15,59 +15,66 @@ Chart Logs
 {% endblock %}
 
 {% block content %}
-<h1>Log List</h1>
+<div class="container mt-4">
+    <h1 class="mb-4">Log List</h1>
 
-<form id="filter-form" hx-boost="true" hx-trigger="change delay:500ms from:input, select, textarea">
-    Select timestamp:
-    <select id="selectDateInterval" name="datetime_selection" hx-get="/api/log_tracker/chart" hx-target="#root"
-        hx-trigger="change delay:500ms" hx-include="#filter-form">
-        <option value="last_24h" {% if datetime_selection == "last_24h" %}selected{% endif %}>Last 24 hours</option>
-        <option value="last_week" {% if datetime_selection == "last_week" %}selected{% endif %}>Last week</option>
-        <option value="last_month" {% if datetime_selection == "last_month" %}selected{% endif %}>Last Month</option>
-        <option value="last_6_mth" {% if datetime_selection == "last_6_mth" %}selected{% endif %}>Last 6 Months</option>
-        <option value="last_year" {% if datetime_selection == "last_year" %}selected{% endif %}>Last year</option>
-        <option value="select_time_interval" {% if datetime_selection == "select_time_interval" %}selected{% endif %}>
-            Select time interval </option>
-    </select>
-    <div id="setDateTimeInterval" {% if datetime_selection != "select_time_interval" %}hidden="true" {% endif %}">
-        Start Date: <input id="start-date" type="datetime-local" name="start_date" value="{{ start_date }}"
-            hx-get="/api/log_tracker/chart" hx-target="#root" hx-trigger="change delay:500ms" hx-include="#filter-form">
-        End Date: <input id="end-date" type="datetime-local" name="end_date" value="{{ end_date }}"
-            hx-get="/api/log_tracker/chart" hx-target="#root" hx-trigger="change delay:500ms" hx-include="#filter-form">
-    </div>
-    <div>
-        Log Type:
-        <select name="level" hx-get="/api/log_tracker/chart" hx-target="#root" hx-trigger="change delay:500ms"
-            hx-include="#filter-form">
-            <option value="">All</option>
-            <option value="INFO" {% if level == 'INFO' %}selected{% endif %}>Info</option>
-            <option value="DEBUG" {% if level == 'DEBUG' %}selected{% endif %}>Debug</option>
-            <option value="WARNING" {% if level == 'WARNING' %}selected{% endif %}>Warning</option>
-            <option value="CRITICAL" {% if level == 'CRITICAL' %}selected{% endif %}>Critical</option>
-        </select>
-    </div>
-    <div>
-        Query: <input type="text" name="query" value="{{ query }}">
-        <button hx-get="/api/log_tracker/chart" hx-target="#root" hx-include="#filter-form">Search</button>
-    </div>
-    <div>
-        Aggregate by:
-        <select name="aggregation" hx-get="/api/log_tracker/chart" hx-target="#root" hx-trigger="change delay:500ms"
-            hx-include="#filter-form">
-            <option value="level" {% if aggregation == 'level' %}selected{% endif %}>Level</option>
-            <option value="month" {% if aggregation == 'month' %}selected{% endif %}>Month</option>
-            <option value="year" {% if aggregation == 'year' %}selected{% endif %}>Year</option>
-            <option value="day" {% if aggregation == 'day' %}selected{% endif %}>Day</option>
-            <option value="hour" {% if aggregation == 'hour' %}selected{% endif %}>Hour</option>
-        </select>
-    </div>
-</form>
+    <form id="filter-form" class="mb-4" hx-boost="true" hx-trigger="change delay:500ms from:input, select, textarea">
+        <div class="mb-3">
+            <label for="selectDateInterval" class="form-label">Select timestamp:</label>
+            <select id="selectDateInterval" name="datetime_selection" class="form-select" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-trigger="change delay:500ms" hx-include="#filter-form">
+                <option value="last_24h" {% if datetime_selection == "last_24h" %}selected{% endif %}>Last 24 hours</option>
+                <option value="last_week" {% if datetime_selection == "last_week" %}selected{% endif %}>Last week</option>
+                <option value="last_month" {% if datetime_selection == "last_month" %}selected{% endif %}>Last Month</option>
+                <option value="last_6_mth" {% if datetime_selection == "last_6_mth" %}selected{% endif %}>Last 6 Months</option>
+                <option value="last_year" {% if datetime_selection == "last_year" %}selected{% endif %}>Last year</option>
+                <option value="select_time_interval" {% if datetime_selection == "select_time_interval" %}selected{% endif %}>Select time interval</option>
+            </select>
+        </div>
+        
+        <div id="setDateTimeInterval" class="mb-3" {% if datetime_selection != "select_time_interval" %}style="display:none;"{% endif %}>
+            <label for="start-date" class="form-label">Start Date:</label>
+            <input id="start-date" type="datetime-local" name="start_date" class="form-control" value="{{ start_date }}" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-trigger="change delay:500ms" hx-include="#filter-form">
+            <label for="end-date" class="form-label">End Date:</label>
+            <input id="end-date" type="datetime-local" name="end_date" class="form-control" value="{{ end_date }}" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-trigger="change delay:500ms" hx-include="#filter-form">
+        </div>
+        
+        <div class="mb-3">
+            <label for="logType" class="form-label">Log Type:</label>
+            <select name="level" class="form-select" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-trigger="change delay:500ms" hx-include="#filter-form">
+                <option value="">All</option>
+                <option value="INFO" {% if level == 'INFO' %}selected{% endif %}>Info</option>
+                <option value="DEBUG" {% if level == 'DEBUG' %}selected{% endif %}>Debug</option>
+                <option value="WARNING" {% if level == 'WARNING' %}selected{% endif %}>Warning</option>
+                <option value="CRITICAL" {% if level == 'CRITICAL' %}selected{% endif %}>Critical</option>
+            </select>
+        </div>
+        
+        <div class="mb-3">
+            <label for="query" class="form-label">Query:</label>
+            <input type="text" name="query" class="form-control" placeholder="Search for text in log messages..." value="{{ query }}">
+            <button type="button" class="btn btn-primary mt-2" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-include="#filter-form">Search</button>
+        </div>
+        
+        <div class="mb-3">
+            <label for="aggregation" class="form-label">Aggregate by:</label>
+            <select name="aggregation" class="form-select" hx-get="/api/log_tracker/chart" hx-target="#super-root" hx-trigger="change delay:500ms" hx-include="#filter-form">
+                <option value="level" {% if aggregation == 'level' %}selected{% endif %}>Level</option>
+                <option value="month" {% if aggregation == 'month' %}selected{% endif %}>Month</option>
+                <option value="year" {% if aggregation == 'year' %}selected{% endif %}>Year</option>
+                <option value="day" {% if aggregation == 'day' %}selected{% endif %}>Day</option>
+                <option value="hour" {% if aggregation == 'hour' %}selected{% endif %}>Hour</option>
+            </select>
+        </div>
+    </form>
 
-<div id="chart-wrapper">
-    {% if data %}
-    {% include "components/chart.html" %}
-    {% else %}
-    <h1>No logs match these criteria</h1>
-    {% endif %}
+    <div id="chart-wrapper" class="d-flex justify-content-center">
+        <div class="w-100">
+            {% if data %}
+            {% include "components/chart.html" %}
+            {% else %}
+            <h2>No logs match these criteria</h2>
+            {% endif %}
+        </div>
+    </div>
 </div>
 {% endblock %}

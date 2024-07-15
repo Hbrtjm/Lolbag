@@ -67,7 +67,7 @@ START "" /b python .\manage.py runserver %LOGBAG_HOST%:%LOGBAG_PORT%
 :: Check for changes in the logs every second
 :log_tracker_loop
 python .\manage.py log_tracker
-timeout /t 100
+timeout /t 1
 GOTO log_tracker_loop
 
 :help

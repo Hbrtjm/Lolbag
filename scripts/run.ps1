@@ -18,6 +18,9 @@ $Env:LOG_FILE_PATH = $LogFilePath
 #     Write-Output "You are running a linux machine, run the server using run.sh instead"
 # }
 
+
+
+
 # Same cleanup as with bash script to free the port
 function Cleanup {
     $managePyProcesses = Get-Process | Where-Object { $_.ProcessName -like "python" -and $_.Path -match "manage.py" }
@@ -43,40 +46,8 @@ function Show-Help {
 Set-Location ..
 
 # Check if the virutal environment exists, if not, create one
-# Check if virtualenv is installed
-$virtualenvExists = $false
-try {
-    virtualenv --version *>&1 | Out-Null
-    $virtualenvExists = $true
-} catch {
-    $virtualenvExists = $false
-}
-
-# Function to create virtual environment
-function Create-VirtualEnv {
-    param (
-        [string]$command
-    )
-    try {
-        Invoke-Expression $command
-        if ($LASTEXITCODE -ne 0) {
-            exit $LASTEXITCODE
-        }
-    } catch {
-        exit 1
-    }
-}
-
-if ($virtualenvExists) {
-    if (-Not (Test-Path -Path "env")) {
-        Create-VirtualEnv "virtualenv env"
-    }
-} else {
-    if (Test-Path -Path "$env:SystemDrive\Python39\python.exe") {
-        Create-VirtualEnv "$env:SystemDrive\Python39\python.exe -m venv env"
-    } else {
-        Create-VirtualEnv "python3 -m venv env"
-    }
+if (-Not (Test-Path -Path "./env" -PathType Container)) {
+    virtualenv env
 }
 
 # Start the virtual environment
